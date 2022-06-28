@@ -18,6 +18,6 @@ public class Player implements Observer {
     }
 
     public void update(Observable dm, Object arg1) {
-        this.notifyRoll = this.name + ", no seu turno você pode realizar as " + dm.toString();
+        this.notifyRoll = this.name + " foi solicitado pelo " + dm.toString();
     }
 }

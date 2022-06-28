@@ -1,26 +1,24 @@
-import java.util.List;
 import java.util.Observable;
 
 public class Master extends Observable{
 
     private String name;
-    private List<String> actions;
+    private String action;
 
-    public Master(String name, List<String> actions) {
+    public Master(String name, String action) {
         this.name = name;
-        this.actions = actions;
+        this.action = action;
     }
 
-    public void CombatTurn() {
+    public void rollAction() {
         setChanged();
         notifyObservers();
     }
 
     @Override
     public String toString() {
-        return "Ações{" +
-                "nome=" + name +
-                ", semestre=" + actions +
-                '}';
+        return "Dungeon Master " + name +
+                " à realizar a rolagem para a ação de " + actions +
+                ".";
     }
 }

@@ -5,44 +5,44 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {
 
     @Test
-    void deveNotificarUmAluno() {
-        Turma turma = new Turma(2021, 1, "Algoritmos", "A");
-        Aluno aluno = new Aluno("Aluno 1");
-        aluno.matricular(turma);
-        turma.lancarNotas();
-        assertEquals("Aluno 1, nota lançada na Turma{ano=2021, semestre=1, nomeDisciplina='Algoritmos', nomeTurma='A'}", aluno.getUltimaNotificacao());
+    void shouldNotifyAPlayer() {
+        Master dm = new Master("Rafael", "Ataque");
+        Player player = new Player("Pureza");
+        player.dungeonMaster(dm);
+        dm.rollAction();
+        assertEquals("Pureza foi solicitado pelo Dungeon Master Rafael à realizar a rolagem para a ação de Ataque.", Player.getNotifyRoll());
     }
 
     @Test
-    void deveNotificarAlunos() {
-        Turma turma = new Turma(2021, 1, "Algoritmos", "A");
-        Aluno aluno1 = new Aluno("Aluno 1");
-        Aluno aluno2 = new Aluno("Aluno 2");
-        aluno1.matricular(turma);
-        aluno2.matricular(turma);
-        turma.lancarNotas();
-        assertEquals("Aluno 1, nota lançada na Turma{ano=2021, semestre=1, nomeDisciplina='Algoritmos', nomeTurma='A'}", aluno1.getUltimaNotificacao());
-        assertEquals("Aluno 2, nota lançada na Turma{ano=2021, semestre=1, nomeDisciplina='Algoritmos', nomeTurma='A'}", aluno2.getUltimaNotificacao());
+    void shouldNotifyPlayers() {
+        Master dm = new Master("Rafael", "Ataque");
+        Player player1 = new Player("Pureza");
+        Player player2 = new Player("Felipe");
+        player1.dungeonMaster(dm);
+        player2.dungeonMaster(dm);
+        dm.rollAction();
+        assertEquals("Pureza foi solicitado pelo Dungeon Master Rafael à realizar a rolagem para a ação de Ataque.", Player1.getNotifyRoll());
+        assertEquals("Felipe foi solicitado pelo Dungeon Master Rafael à realizar a rolagem para a ação de Ataque.", Player2.getNotifyRoll());
     }
 
     @Test
-    void naoDeveNotificarAluno() {
-        Turma turma = new Turma(2021, 1, "Algoritmos", "A");
-        Aluno aluno = new Aluno("Aluno 1");
-        turma.lancarNotas();
-        assertEquals(null, aluno.getUltimaNotificacao());
+    void shouldNotNotifyAPlayer() {
+        Master dm = new Master("Rafael", "Ataque");
+        Player player = new Player("Pureza");
+        dm.rollAction();
+        assertEquals(null, Player.getNotifyRoll());
     }
 
     @Test
-    void deveNotificarAlunoTurmaA() {
-        Turma turmaA = new Turma(2021, 1, "Algoritmos", "A");
-        Turma turmaB = new Turma(2021, 1, "Algoritmos", "B");
-        Aluno aluno1 = new Aluno("Aluno 1");
-        Aluno aluno2 = new Aluno("Aluno 2");
-        aluno1.matricular(turmaA);
-        aluno2.matricular(turmaB);
-        turmaA.lancarNotas();
-        assertEquals("Aluno 1, nota lançada na Turma{ano=2021, semestre=1, nomeDisciplina='Algoritmos', nomeTurma='A'}", aluno1.getUltimaNotificacao());
-        assertEquals(null, aluno2.getUltimaNotificacao());
+    void shouldNotifyPlayerMasterA() {
+        Master dmA = new Master("Rafael", "Ataque");
+        Master dmB = new Master("Isabella", "Ataque");
+        Player player1 = new Player("Pureza");
+        Player player2 = new Player("Felipe");
+        player1.dungeonMaster(dmB);
+        player2.dungeonMaster(dmB);
+        dmA.rollAction();
+        assertEquals("Pureza foi solicitado pelo Dungeon Master Rafael à realizar a rolagem para a ação de Ataque.", Player1.getNotifyRoll());
+        assertEquals(null, Player2.getNotifyRoll());
     }
 }
